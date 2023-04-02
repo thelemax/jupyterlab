@@ -1,0 +1,24 @@
+version: "3.9"
+services:
+  jupyter:
+    container_name: jupyter
+    build: .
+    image: continuumio/miniconda3
+    ports:
+      - "8888:8888"
+    environment:
+      - PUID=1010
+      - GUID=1010
+      - TZ=Europe/Paris
+      - JUPYTER_ENABLE_LAB=yes
+    privileged: true
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./notebooks:/opt/notebooks
+      - data:/root/.jupyter/lab
+    network_mode: bridge
+
+volumes:
+  data:
